@@ -8,6 +8,7 @@ class CreateNotePage extends StatefulWidget {
 
 class _CreateNotePageState extends State<CreateNotePage> {
   TextEditingController controller = TextEditingController();
+  String texto;
 
   @override
   void initState() {
@@ -17,12 +18,19 @@ class _CreateNotePageState extends State<CreateNotePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context).settings.arguments != null) {
+      controller.text = ModalRoute.of(context).settings.arguments.toString();
+      texto = "Editar";
+    } else {
+      texto = "Criar";
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Criar/Editar"),
+        title: Text(texto),
         actions: [
-          IconButton(icon: Icon(Icons.delete), onPressed: () {}),
+          if (texto == "Editar")
+            IconButton(icon: Icon(Icons.delete), onPressed: () {}),
         ],
       ),
       body: Padding(

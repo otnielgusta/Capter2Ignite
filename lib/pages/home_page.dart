@@ -19,10 +19,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-          final description = await Navigator.push(context,
-              MaterialPageRoute(builder: (builder) => CreateNotePage()));
-          notes.add(description.toString());
-          setState(() {});
+          final description =
+              await Navigator.pushNamed(context, "/create-note");
+          if (description != null) {
+            notes.add(description.toString());
+            setState(() {});
+          }
         },
       ),
       body: SingleChildScrollView(
@@ -31,7 +33,13 @@ class _HomePageState extends State<HomePage> {
           children: [
             for (var i = 0; i < notes.length; i++)
               Card(
-                child: ListTile(title: Text(notes[i])),
+                child: ListTile(
+                  title: Text(notes[i]),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/create-note",
+                        arguments: notes[i]);
+                  },
+                ),
               )
           ],
         ),
