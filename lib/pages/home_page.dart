@@ -1,4 +1,5 @@
 import 'package:capter2_ignite/pages/create_note_page.dart';
+import 'package:capter2_ignite/pages/widgets/note_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,23 +28,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            for (var i = 0; i < notes.length; i++)
-              Card(
-                child: ListTile(
-                  title: Text(notes[i]),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/create-note",
-                        arguments: notes[i]);
-                  },
-                ),
-              )
-          ],
-        ),
-      ),
+      body: NotesWidget(notes: notes),
     );
   }
 }

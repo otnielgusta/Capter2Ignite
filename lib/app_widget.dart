@@ -6,6 +6,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       title: "Notes",
       debugShowCheckedModeBanner: false,
       initialRoute: "/home",
