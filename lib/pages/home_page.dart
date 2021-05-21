@@ -12,23 +12,54 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Notes"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          final description =
-              await Navigator.pushNamed(context, "/create-note");
-          if (description != null) {
-            notes.add(description.toString());
-            setState(() {});
-          }
-        },
+      body: Stack(
+        children: [
+          SingleChildScrollView(child: NotesWidget(notes: notes)),
+          Padding(
+            padding: EdgeInsets.only(top: size.height * 0.75),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 50,
+                  width: 200,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        final description =
+                            await Navigator.pushNamed(context, "/create-note");
+                        if (description != null) {
+                          notes.add(description.toString());
+                          setState(() {});
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Adicionar Nota",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      )),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
-      body: NotesWidget(notes: notes),
     );
   }
 }
